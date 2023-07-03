@@ -1,4 +1,4 @@
-cd '/Users/johnwilhoite/Documents/MATLAB/TransportRA'
+cd '/Users/johnwilhoite/Documents/MATLAB/Transport'
 clear all 
 
 %%%%  CALIBRATION  %%%%
@@ -8,10 +8,10 @@ a(2) = 1; %productivity of region 2 commodity sector
 a(3) = 1; %productivity of transport sector
 
 d=zeros(4,1);
-d(1) = 1; %region 1 to 2 required transport services
-d(2) = 1.5; %region 2 to 1 required transport services
-d(3) = 1;
-d(4) = 1.5;
+d(1) = 1; %d_11, region 1 to 1 required transport services
+d(2) = 1.5; %d_12, region 1 to 2 required transport services
+d(3) = 1; %d_22
+d(4) = 1.5; %d_21
 t = 1;
 
 gamma = 0.75; 

@@ -42,9 +42,9 @@ F(10) = (x(21)/a(2))-x(18); %p_2, prices for commodity Q_2
 F(11) = (1/a(3))-x(19); %p_T1, price for T_1 transport services
 F(12) = (x(21)/a(3))-x(20); %p_T2, price for T_2 transport services
 F(13) = 0.5*x(1)*(x(15)/(x(17)+d(1)*t*x(19)))^(1/(1-gamma))-x(5); %optimal demand for Z_11
-F(14) = 0.5*x(1)*(x(15)/(x(18)+d(4)*t*x(20)))^(1/(1-gamma))-x(8); %optimal demand for Z_12
+F(14) = 0.5*x(1)*(x(15)/(x(18)+d(4)*t*x(20)))^(1/(1-gamma))-x(8); %optimal demand for Z_21
 F(15) = 0.5*x(2)*(x(16)/(x(18)+d(3)*t*x(20)))^(1/(1-gamma))-x(7); %optimal demand for Z_22
-F(16) = 0.5*x(2)*(x(16)/(x(17)+d(2)*t*x(19)))^(1/(1-gamma))-x(6); %optimal demand for Z_22
+F(16) = 0.5*x(2)*(x(16)/(x(17)+d(2)*t*x(19)))^(1/(1-gamma))-x(6); %optimal demand for Z_12
 
 %Market clearing conditions
 F(17) = x(5)+x(6)-x(3); %market clearing condition for Q_1
