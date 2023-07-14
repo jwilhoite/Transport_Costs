@@ -120,3 +120,15 @@ plot(elasticity,transport_gdp)
 xlabel('Elasticity of Substitution')
 ylabel('Tranport GDP Share');
 
+
+%%%%%%%%  Saving Output  %%%%%%%%
+for n=1:4
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Transport_Figures',strcat(figname,'.png')))
+end 
+
+for n=5:8
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Elasticity_Figures',strcat(figname,'.png')))
+end 
+

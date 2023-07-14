@@ -170,6 +170,11 @@ plot(prodspace,transport_gdp)
 xlabel('Transport Productivity')
 ylabel('Tranport GDP Share');
 
+%%%%%%%%  Saving Output  %%%%%%%%
+for n=1:12
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Productivity_Figures',strcat(figname,'.png')))
+end 
 
 
 
