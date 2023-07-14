@@ -9,9 +9,9 @@ a(3) = 1; %productivity of transport sector
 
 d=zeros(4,1);
 d(1) = 1; %d_11, region 1 to 2 required transport services
-d(2) = 1; %d__12, region 1 to 2 required transport services
+d(2) = 1.5; %d__12, region 1 to 2 required transport services
 d(3) = 1; %d_22
-d(4) = 1; %d_21
+d(4) = 1.5; %d_21
 t = 1;
 
 gamma = 0.75; 
@@ -79,7 +79,7 @@ for n=1:length(dspace_inter)
     d(2)=dspace_inter(n);
     d(4)=dspace_inter(n);
     fun = @(x) model(x, gamma, a, d, t);
-    x0 = ones(1,21);
+    x0 = ones(1,21)/2;
     [x,~,flag] = fsolve(fun,x0);
     flags(n)=flag;
     sol_inter_sym(n,:)=real(x);
@@ -173,5 +173,5 @@ ylabel('Tranport GDP Share');
 %%%%%%%%  Saving Output  %%%%%%%%
 for n=1:12
     figname = num2str(get(figure(n),'Number'));
-    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Distance_Figures',strcat(figname,'.png')))
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/distance_figures',strcat(figname,'.png')))
 end 

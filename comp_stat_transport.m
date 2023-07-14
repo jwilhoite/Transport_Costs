@@ -124,11 +124,11 @@ ylabel('Tranport GDP Share');
 %%%%%%%%  Saving Output  %%%%%%%%
 for n=1:4
     figname = num2str(get(figure(n),'Number'));
-    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Transport_Figures',strcat(figname,'.png')))
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/transport_figures',strcat(figname,'.png')))
 end 
 
 for n=5:8
     figname = num2str(get(figure(n),'Number'));
-    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Elasticity_Figures',strcat(figname,'.png')))
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/elasticity_figures',strcat(figname,'.png')))
 end 
 
