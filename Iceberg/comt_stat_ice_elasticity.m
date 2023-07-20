@@ -71,13 +71,9 @@ ylabel('Tranport GDP Share');
 
 
 %%%%%%%%  Saving Output  %%%%%%%%
-%for n=1:4
- %   figname = num2str(get(figure(n),'Number'));
-  %  saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/transport_figures',strcat(figname,'.png')))
-%end 
+for n=1:3
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Iceberg/iceberg_figures/iceberg_elasticity',strcat(figname,'.png')))
+end 
 
-%for n=5:8
- %   figname = num2str(get(figure(n),'Number'));
-  %  saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/elasticity_figures',strcat(figname,'.png')))
-%end 
 

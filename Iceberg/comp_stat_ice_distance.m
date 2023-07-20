@@ -160,7 +160,7 @@ xlabel('Region 1 to Region 2 Distance, d_{12}')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Saving Output  %%%%%%%%
-%for n=1:12
-   % figname = num2str(get(figure(n),'Number'));
-   % saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/distance_figures',strcat(figname,'.png')))
-%end 
+for n=1:9
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Iceberg/iceberg_figures/iceberg_distance',strcat(figname,'.png')))
+end 
