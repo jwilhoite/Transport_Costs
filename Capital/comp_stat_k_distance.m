@@ -1,4 +1,4 @@
-cd '/Users/johnwilhoite/Documents/MATLAB/Transport'
+cd '/Users/johnwilhoite/Documents/MATLAB/Transport/Capital'
 clear all 
 
 %%%%%%%%  CALIBRATION  %%%%%%%%
@@ -17,8 +17,8 @@ t = 1;
 gamma = 0.75; 
 beta = 0.99;
 delta=0.75;
-alpha=0.6;
-alpha_t=0.8;
+alpha=0.5;
+alpha_t=0.5;
 
 %%%%%%%%   Intra-Regional Distance  %%%%%%%%
 dspace_intra= 0:0.01:5;
@@ -89,38 +89,38 @@ for n=1:length(dspace_inter)
     sol_inter_sym(n,:)=real(x);
 end 
 
-welfare = zeros(length(dpsace_inter),1);
-transport_gdp = zeros(length(dpsace_inter),1);
+welfare = zeros(length(dspace_inter),1);
+transport_gdp = zeros(length(dspace_inter),1);
 
-for n=1:length(dpsace_inter)
+for n=1:length(dspace_inter)
     welfare(n) = (1+sol_inter_sym(n,28)*sol_inter_sym(n,31))/sol_inter_sym(n,21);
 end 
 
-for n=1:length(dpsace_inter)
+for n=1:length(dspace_inter)
     x=sol_inter_sym(n,25)*sol_inter_sym(n,9)+sol_inter_sym(n,26)*sol_inter_sym(n,10);
     y=sol_inter_sym(n,21)*sol_inter_sym(n,1)+sol_inter_sym(n,22)*sol_inter_sym(n,2);
     transport_gdp_share(n)=x/y;
 end 
 
 figure
-plot(dpsace_inter,welfare)
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,welfare)
+xlabel('Inter-Regional Distance')
 ylabel('Welfare');
 
 figure
-plot(dpsace_inter,sol_inter_sym(:,11)+sol_inter_sym(:,13))
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,sol_inter_sym(:,11)+sol_inter_sym(:,13))
+xlabel('Inter-Regional Distance')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
-plot(dpsace_inter,sol_inter_sym(:,13)+sol_inter_sym(:,14))
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,sol_inter_sym(:,13)+sol_inter_sym(:,14))
+xlabel('Inter-Regional Distance')
 ylabel('Tranport Labor Share');
 
 figure
-plot(dpsace_inter,transport_gdp_share)
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,transport_gdp_share)
+xlabel('Inter-Regional Distance')
 ylabel('Tranport GDP Share');
 
 %%%%  Asymmetric case %%%%
@@ -141,38 +141,38 @@ for n=1:length(dspace_inter)
     sol_inter_asym(n,:)=x;
 end 
 
-welfare = zeros(length(dpsace_inter),1);
-transport_gdp = zeros(length(dpsace_inter),1);
+welfare = zeros(length(dspace_inter),1);
+transport_gdp = zeros(length(dspace_inter),1);
 
-for n=1:length(dpsace_inter)
+for n=1:length(dspace_inter)
     welfare(n) = (1+sol_inter_asym(n,28)*sol_inter_asym(n,31))/sol_inter_asym(n,21);
 end 
 
-for n=1:length(dpsace_inter)
+for n=1:length(dspace_inter)
     x=sol_inter_asym(n,25)*sol_inter_asym(n,9)+sol_inter_asym(n,26)*sol_inter_asym(n,10);
     y=sol_inter_asym(n,21)*sol_inter_asym(n,1)+sol_inter_asym(n,22)*sol_inter_asym(n,2);
     transport_gdp_share(n)=x/y;
 end 
 
 figure
-plot(dpsace_inter,welfare)
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,welfare)
+xlabel('Region 1 to Region 2 Distance, d_{12}')
 ylabel('Welfare');
 
 figure
-plot(dpsace_inter,sol_inter_asym(:,11)+sol_inter_asym(:,13))
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,sol_inter_asym(:,11)+sol_inter_asym(:,13))
+xlabel('Region 1 to Region 2 Distance, d_{12}')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
-plot(dpsace_inter,sol_inter_asym(:,13)+sol_inter_asym(:,14))
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,sol_inter_asym(:,13)+sol_inter_asym(:,14))
+xlabel('Region 1 to Region 2 Distance, d_{12}')
 ylabel('Tranport Labor Share');
 
 figure
-plot(dpsace_inter,transport_gdp_share)
-xlabel('Intra-Regional Distance')
+plot(dspace_inter,transport_gdp_share)
+xlabel('Region 1 to Region 2 Distance, d_{12}')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Saving Output  %%%%%%%%

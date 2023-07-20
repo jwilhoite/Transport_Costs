@@ -1,4 +1,4 @@
-cd '/Users/johnwilhoite/Documents/MATLAB/Transport'
+cd '/Users/johnwilhoite/Documents/MATLAB/Transport/Capital'
 clear all 
 
 %%%%%%%%  CALIBRATION  %%%%%%%%
@@ -17,9 +17,8 @@ t = 1;
 gamma = 0.75; 
 beta = 0.99;
 delta=0.75;
-alpha=0.6;
-alpha_t=0.8;
-
+alpha=0.5;
+alpha_t=0.5;
 
 %%%%%%%%  Commodity Productivity  %%%%%%%%
 %%%%  Symmetric case %%%%
@@ -38,7 +37,7 @@ for n=1:length(prodspace)
 end 
 
 welfare = zeros(length(prodspace),1);
-transport_gdp = zeros(length(prodspace),1);
+transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
     welfare(n) = (1+sol_com_sym(n,28)*sol_com_sym(n,31))/sol_com_sym(n,21);
@@ -52,23 +51,23 @@ end
 
 figure
 plot(prodspace,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Welfare');
 
 figure
 plot(prodspace,sol_com_sym(:,11)+sol_com_sym(:,13))
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
 plot(prodspace,sol_com_sym(:,13)+sol_com_sym(:,14))
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Tranport Labor Share');
 
 figure
 plot(prodspace,transport_gdp_share)
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%  Asymmetric case %%%%
@@ -90,13 +89,13 @@ for n=1:length(prodspace)
 end 
 
 welfare = zeros(length(prodspace),1);
-transport_gdp = zeros(length(prodspace),1);
+transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
     welfare(n) = (1+sol_com_asym(n,28)*sol_com_asym(n,31))/sol_com_asym(n,21);
 end 
 
-for n=1:length(dspace_intra)
+for n=1:length(prodspace)
     x=sol_com_asym(n,25)*sol_com_asym(n,9)+sol_com_asym(n,26)*sol_com_asym(n,10);
     y=sol_com_asym(n,21)*sol_com_asym(n,1)+sol_com_asym(n,22)*sol_com_asym(n,2);
     transport_gdp_share(n)=x/y;
@@ -104,23 +103,23 @@ end
 
 figure
 plot(prodspace,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Welfare');
 
 figure
 plot(prodspace,sol_com_asym(:,11)+sol_com_asym(:,13))
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
 plot(prodspace,sol_com_asym(:,13)+sol_com_asym(:,14))
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Tranport Labor Share');
 
 figure
 plot(prodspace,transport_gdp_share)
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Transport Productivity  %%%%%%%%
@@ -142,7 +141,7 @@ for n=1:length(prodspace)
 end 
 
 welfare = zeros(length(prodspace),1);
-transport_gdp = zeros(length(prodspace),1);
+transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
     welfare(n) = (1+sol_transport(n,28)*sol_transport(n,31))/sol_transport(n,21);
@@ -156,23 +155,23 @@ end
 
 figure
 plot(prodspace,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Transport Productivity')
 ylabel('Welfare');
 
 figure
 plot(prodspace,sol_transport(:,11)+sol_transport(:,13))
-xlabel('Intra-Regional Distance')
+xlabel('Transport Productivity')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
 plot(prodspace,sol_transport(:,13)+sol_transport(:,14))
-xlabel('Intra-Regional Distance')
+xlabel('Transport Productivity')
 ylabel('Tranport Labor Share');
 
 figure
 plot(prodspace,transport_gdp_share)
-xlabel('Intra-Regional Distance')
+xlabel('Transport Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Saving Output  %%%%%%%%
