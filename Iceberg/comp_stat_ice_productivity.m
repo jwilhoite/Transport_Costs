@@ -1,4 +1,4 @@
-cd '/Users/johnwilhoite/Documents/MATLAB/Transport'
+cd '/Users/johnwilhoite/Documents/MATLAB/Transport/Iceberg'
 clear all 
 
 %%%%%%%%  CALIBRATION  %%%%%%%%
@@ -27,7 +27,7 @@ for n=1:length(prodspace)
     a(1)=prodspace(n);
     a(2)=prodspace(n);
     x0=ones(1,24);
-    fun = @(x) model_k_ice(x, gamma, alpha, delta, beta, a, tau);
+    fun = @(x) model_iceberg(x, gamma, alpha, delta, beta, a, tau);
     [x,~,flag]=fsolve(fun,x0);
     sol_com_sym(n,:)=real(x);
     flags(n)=flag;
@@ -37,11 +37,11 @@ welfare = zeros(length(prodspace),1);
 transport_gdp = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
-    welfare(n) = (1+sol_com_sym(20)*sol_com_sym(23))/sol_com_sym(15);
+    welfare(n) = (1+sol_com_sym(n,20)*sol_com_sym(n,23))/sol_com_sym(n,15);
 end 
 
 for n=1:length(prodspace)
-    x=(sol_com_sym(n,17)*sol_com_sym(n,5)*tau(1))+(sol_com_sym(n,17)*sol_com_sym(n,6)*tau(2))+
+    x=(sol_com_sym(n,17)*sol_com_sym(n,5)*tau(1))+(sol_com_sym(n,17)*sol_com_sym(n,6)*tau(2))+...
     (sol_com_sym(n,18)*sol_com_sym(n,7)*tau(3))+(sol_com_sym(n,18)*sol_com_sym(n,8)*tau(4));
     y=sol_com_sym(n,15)*sol_com_sym(n,1)+sol_com_sym(n,16)*sol_com_sym(n,2);
     transport_gdp(n)=x/y;
@@ -49,33 +49,32 @@ end
 
 figure
 plot(prodspace,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Welfare');
 
 figure
 plot(prodspace,sol_com_sym(:,9))
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
 plot(prodspace,transport_gdp)
-xlabel('Intra-Regional Distance')
+xlabel('Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%  Asymmetric case %%%%
 sol_com_asym = zeros(length(prodspace),24);
 flags = zeros(length(prodspace),1);
 
-a = zeros(3,1);
+a = zeros(2,1);
 a(1) = 1; %productivity of region 1 commodity sector
 a(2) = 1; %productivity of region 2 commodity sector
-a(3) = 1; %productivity of transport sector
 
 for n=1:length(prodspace)
     a(1)=prodspace(n);
     x0=ones(1,24);
-    fun = @(x) model_k(x, gamma, delta, beta, alpha, alpha_t, a, d, t);
+    fun = @(x) model_iceberg(x, gamma, alpha, delta, beta, a, tau);
     [x,~,flag]=fsolve(fun,x0);
     sol_com_asym(n,:)=real(x);
     flags(n)=flag;
@@ -85,11 +84,11 @@ welfare = zeros(length(prodspace),1);
 transport_gdp = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
-    welfare(n) = (1+sol_com_asym(20)*sol_com_asym(23))/sol_com_asym(15);
+    welfare(n) = (1+sol_com_asym(n,20)*sol_com_asym(n,23))/sol_com_asym(n,15);
 end 
 
 for n=1:length(prodspace)
-    x=(sol_com_asym(n,17)*sol_com_asym(n,5)*tau(1))+(sol_com_asym(n,17)*sol_com_asym(n,6)*tau(2))+
+    x=(sol_com_asym(n,17)*sol_com_asym(n,5)*tau(1))+(sol_com_asym(n,17)*sol_com_asym(n,6)*tau(2))+...
     (sol_com_asym(n,18)*sol_com_asym(n,7)*tau(3))+(sol_com_asym(n,18)*sol_com_asym(n,8)*tau(4));
     y=sol_com_asym(n,15)*sol_com_asym(n,1)+sol_com_asym(n,16)*sol_com_asym(n,2);
     transport_gdp(n)=x/y;
@@ -97,18 +96,18 @@ end
 
 figure
 plot(prodspace,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Welfare');
 
 figure
 plot(prodspace,sol_com_asym(:,9))
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Region 1 Labor Share');
-ylim([-0.1,0.8])
+ylim([-0.1,1.1])
 
 figure
 plot(prodspace,transport_gdp)
-xlabel('Intra-Regional Distance')
+xlabel('Region 1 Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 

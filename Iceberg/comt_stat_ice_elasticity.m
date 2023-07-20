@@ -1,4 +1,4 @@
-cd '/Users/johnwilhoite/Documents/MATLAB/Transport'
+cd '/Users/johnwilhoite/Documents/MATLAB/Transport/Iceberg'
 clear all 
 
 %%%%%%%%  CALIBRATION  %%%%%%%%
@@ -26,7 +26,7 @@ t=1;
 
 for n=1:length(gammaspace)
     gamma=gammaspace(n);
-    fun = @(x) model_k_ice(x, gamma, alpha, delta, beta, a, tau);
+    fun = @(x) model_iceberg(x, gamma, alpha, delta, beta, a, tau);
     x0 = ones(1,24)/2;
     [x,~,flag] = fsolve(fun,x0);
     flags(n)=flag;
@@ -43,30 +43,30 @@ for n=1:length(gammaspace)
 end 
 
 for n=1:length(gammaspace)
-    welfare(n) = (1+sol_substitution(20)*sol_substitution(23))/sol_substitution(15);
+    welfare(n) = (1+sol_substitution(n,20)*sol_substitution(n,23))/sol_substitution(n,15);
 end 
 
 for n=1:length(gammaspace)
-    x=(sol_substitution(n,17)*sol_substitution(n,5)*tau(1))+(sol_substitution(n,17)*sol_substitution(n,6)*tau(2))+
-    (sol_substitution(n,18)*sol_substitution(n,7)*tau(3))+(sol_substitution(n,18)*sol_substitution(n,8)*tau(4));
+    x=(sol_substitution(n,17)*sol_substitution(n,5)*tau(1))+(sol_substitution(n,17)*sol_substitution(n,6)*tau(2))+...
+        (sol_substitution(n,18)*sol_substitution(n,7)*tau(3))+(sol_substitution(n,18)*sol_substitution(n,8)*tau(4));
     y=sol_substitution(n,15)*sol_substitution(n,1)+sol_substitution(n,16)*sol_substitution(n,2);
     transport_gdp(n)=x/y;
 end 
 
 figure
 plot(elasticity,welfare)
-xlabel('Intra-Regional Distance')
+xlabel('Elasticity of Substitution')
 ylabel('Welfare');
 
 figure
 plot(elasticity,sol_substitution(:,9))
-xlabel('Intra-Regional Distance')
+xlabel('Elasticity of Substitution')
 ylabel('Region 1 Labor Share');
 ylim([-0.1,0.8])
 
 figure
 plot(elasticity,transport_gdp)
-xlabel('Intra-Regional Distance')
+xlabel('Elasticity of Substitution')
 ylabel('Tranport GDP Share');
 
 
