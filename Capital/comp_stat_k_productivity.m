@@ -175,7 +175,7 @@ xlabel('Transport Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Saving Output  %%%%%%%%
-%for n=1:12
-    %figname = num2str(get(figure(n),'Number'));
-    %saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/productivity_figures',strcat(figname,'.png')))
-%end 
+for n=1:12
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Capital/capital_figures/capital_productivity',strcat(figname,'.png')))
+end 

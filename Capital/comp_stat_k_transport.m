@@ -48,7 +48,7 @@ for n=1:length(tspace)
 end 
 
 figure
-plot(tspace,welfare1)
+plot(tspace,welfare)
 xlabel('Transport Cost Level')
 ylabel('Welfare');
 
@@ -139,13 +139,13 @@ ylabel('Tranport GDP Share');
 
 
 %%%%%%%%  Saving Output  %%%%%%%%
-%for n=1:4
- %   figname = num2str(get(figure(n),'Number'));
-  %  saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/transport_figures',strcat(figname,'.png')))
-%end 
+for n=1:5
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Capital/capital_figures/capital_transport',strcat(figname,'.png')))
+end 
 
-%for n=5:8
- %   figname = num2str(get(figure(n),'Number'));
-  %  saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/elasticity_figures',strcat(figname,'.png')))
-%end 
+for n=6:10
+    figname = num2str(get(figure(n),'Number'));
+    saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Capital/capital_figures/capital_elasticity',strcat(figname,'.png')))
+end 
 
