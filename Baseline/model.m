@@ -51,8 +51,8 @@ F(17) = x(5)+x(6)-x(3); %market clearing condition for Q_1
 F(18) = x(7)+x(8)-x(4); %market clearing condition for Q_2
 F(19) = (x(5)*d(1)*t)+(x(6)*d(2)*t)-x(9); %market clearing condition for T_1
 F(20) = (x(7)*d(3)*t)+(x(8)*d(4)*t)-x(10); %market clearing condition for T_2
-F(21) = x(11)+x(12)+x(13)+x(14)-1; %market clearing condition for labor L_bar
-F(22) = (1/x(15))-(x(21)/x(16)); %real wagee equalization 
+F(21) = x(11)+x(12)+x(13)+x(14)-10; %market clearing condition for labor L_bar
+F(22) = (1/x(15))-(x(21)/x(16)); %real wage equalization 
 end 
 
 
