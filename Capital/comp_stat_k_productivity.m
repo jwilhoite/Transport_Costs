@@ -22,30 +22,49 @@ alpha_t=0.5;
 
 %%%%%%%%  Commodity Productivity  %%%%%%%%
 %%%%  Symmetric case %%%%
-prodspace = 0.1:0.1:10;
-sol_com_sym = zeros(length(prodspace),32);
+rspace=0.65:0.01:10;
+f=zeros(1,1);
+sol=zeros(1,29);
+
+prodspace = 0.1:0.1:2.5;
+sol_com_sym = zeros(length(prodspace),29);
+solutions_com_sym=zeros(length(prodspace),29);
 flags = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
     a(1)=prodspace(n);
     a(2)=prodspace(n);
-    x0=ones(1,32);
-    fun = @(x) model_k(x, gamma, delta, beta, alpha, alpha_t, a, d, t);
-    [x,~,flag]=fsolve(fun,x0);
-    sol_com_sym(n,:)=real(x);
+    for i=1:length(rspace)
+        r=rspace(i);
+        fun = @(x) model_k_r(x, gamma, alpha, alpha_t, delta, beta, a, d, t, r);
+        x0 = ones(1,28);
+        options=optimoptions('fsolve','Algorithm','levenberg-marquardt');
+        [x,~,flag] = fsolve(fun,x0,options);
+        f=((x(25)+r*x(27))/x(19))-((x(26)+r*x(28))/x(20));
+        if abs(f)<1e-5 && abs(imag(x(25)))<1e-9
+            break 
+        end 
+    end 
     flags(n)=flag;
+    sol(1:18)=real(x(1:18));
+    sol(27:28)=real(x(27:28));
+    sol(19:26)=real(x(19:26))/real(x(25));
+    sol(29)=r/real(x(25));
+    sol_com_sym(n,:)=sol;
+    solutions_com_sym(n,1:28)=x;
+    solutions_com_sym(n,29)=r;
 end 
 
 welfare = zeros(length(prodspace),1);
 transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
-    welfare(n) = (1+sol_com_sym(n,28)*sol_com_sym(n,31))/sol_com_sym(n,21);
+    welfare(n) = (sol_com_sym(n,25)+sol_com_sym(n,29)*sol_com_sym(n,27))/sol_com_sym(n,19);
 end 
 
 for n=1:length(prodspace)
     x=sol_com_sym(n,25)*sol_com_sym(n,9)+sol_com_sym(n,26)*sol_com_sym(n,10);
-    y=sol_com_sym(n,21)*sol_com_sym(n,1)+sol_com_sym(n,22)*sol_com_sym(n,2);
+    y=sol_com_sym(n,19)*sol_com_sym(n,1)+sol_com_sym(n,20)*sol_com_sym(n,2);
     transport_gdp_share(n)=x/y;
 end 
 
@@ -71,7 +90,8 @@ xlabel('Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%  Asymmetric case %%%%
-sol_com_asym = zeros(length(prodspace),32);
+sol_com_asym = zeros(length(prodspace),29);
+solutions_com_asym=zeros(length(prodspace),29);
 flags = zeros(length(prodspace),1);
 
 a = zeros(3,1);
@@ -81,23 +101,37 @@ a(3) = 1; %productivity of transport sector
 
 for n=1:length(prodspace)
     a(1)=prodspace(n);
-    x0=ones(1,32);
-    fun = @(x) model_k(x, gamma, delta, beta, alpha, alpha_t, a, d, t);
-    [x,~,flag]=fsolve(fun,x0);
-    sol_com_asym(n,:)=real(x);
+    for i=1:length(rspace)
+        r=rspace(i);
+        fun = @(x) model_k_r(x, gamma, alpha, alpha_t, delta, beta, a, d, t, r);
+        x0 = ones(1,28);
+        options=optimoptions('fsolve','Algorithm','levenberg-marquardt');
+        [x,~,flag] = fsolve(fun,x0,options);
+        f=((x(25)+r*x(27))/x(19))-((x(26)+r*x(28))/x(20));
+        if abs(f)<1e-5 && abs(imag(x(25)))<1e-9
+            break 
+        end 
+    end 
     flags(n)=flag;
+    sol(1:18)=real(x(1:18));
+    sol(27:28)=real(x(27:28));
+    sol(19:26)=real(x(19:26))/real(x(25));
+    sol(29)=r/real(x(25));
+    solutions_com_asym(n,1:28)=x;
+    solutions_com_asym(n,29)=r;
+    sol_com_asym(n,:)=sol;
 end 
 
 welfare = zeros(length(prodspace),1);
 transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
-    welfare(n) = (1+sol_com_asym(n,28)*sol_com_asym(n,31))/sol_com_asym(n,21);
+    welfare(n) = (sol_com_asym(n,25)+sol_com_asym(n,29)*sol_com_asym(n,27))/sol_com_asym(n,19);
 end 
 
 for n=1:length(prodspace)
     x=sol_com_asym(n,25)*sol_com_asym(n,9)+sol_com_asym(n,26)*sol_com_asym(n,10);
-    y=sol_com_asym(n,21)*sol_com_asym(n,1)+sol_com_asym(n,22)*sol_com_asym(n,2);
+    y=sol_com_asym(n,19)*sol_com_asym(n,1)+sol_com_asym(n,20)*sol_com_asym(n,2);
     transport_gdp_share(n)=x/y;
 end 
 
@@ -123,7 +157,8 @@ xlabel('Region 1 Commodity Productivity')
 ylabel('Tranport GDP Share');
 
 %%%%%%%%  Transport Productivity  %%%%%%%%
-sol_transport = zeros(length(prodspace),32);
+sol_transport = zeros(length(prodspace),29);
+solutions_transport = zeros(length(prodspace),29);
 flags = zeros(length(prodspace),1);
 
 a = zeros(3,1);
@@ -133,23 +168,37 @@ a(3) = 1; %productivity of transport sector
 
 for n=1:length(prodspace)
     a(3)=prodspace(n);
-    x0=ones(1,32)/2;
-    fun = @(x) model_k(x, gamma, delta, beta, alpha, alpha_t, a, d, t);
-    [x,~,flag]=fsolve(fun,x0);
-    sol_transport(n,:)=real(x);
+    for i=1:length(rspace)
+        r=rspace(i);
+        fun = @(x) model_k_r(x, gamma, alpha, alpha_t, delta, beta, a, d, t, r);
+        x0 = ones(1,28);
+        options=optimoptions('fsolve','Algorithm','levenberg-marquardt');
+        [x,~,flag] = fsolve(fun,x0,options);
+        f=((x(25)+r*x(27))/x(19))-((x(26)+r*x(28))/x(20));
+        if abs(f)<1e-5 && abs(imag(x(25)))<1e-9
+            break 
+        end 
+    end 
     flags(n)=flag;
+    sol(1:18)=real(x(1:18));
+    sol(27:28)=real(x(27:28));
+    sol(19:26)=real(x(19:26))/real(x(25));
+    sol(29)=r/real(x(25));
+    solutions(n,1:28)=x;
+    solutions(n,29)=r;
+    sol_transport(n,:)=sol;
 end 
 
 welfare = zeros(length(prodspace),1);
 transport_gdp_share = zeros(length(prodspace),1);
 
 for n=1:length(prodspace)
-    welfare(n) = (1+sol_transport(n,28)*sol_transport(n,31))/sol_transport(n,21);
+    welfare(n) = (sol_transport(n,25)+sol_transport(n,29)*sol_transport(n,27))/sol_transport(n,19);
 end 
 
 for n=1:length(prodspace)
     x=sol_transport(n,25)*sol_transport(n,9)+sol_transport(n,26)*sol_transport(n,10);
-    y=sol_transport(n,21)*sol_transport(n,1)+sol_transport(n,22)*sol_transport(n,2);
+    y=sol_transport(n,19)*sol_transport(n,1)+sol_transport(n,20)*sol_transport(n,2);
     transport_gdp_share(n)=x/y;
 end 
 
@@ -179,3 +228,5 @@ for n=1:12
     figname = num2str(get(figure(n),'Number'));
     saveas(figure(n),fullfile('/Users/johnwilhoite/Documents/MATLAB/Transport/Capital/capital_figures/capital_productivity',strcat(figname,'.png')))
 end 
+
+
